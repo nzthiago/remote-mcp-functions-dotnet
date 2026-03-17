@@ -84,11 +84,10 @@ var allRedirectUris = !empty(authRedirectUri) ? union([authRedirectUri], redirec
 var defaultIdentifierUri = 'api://${appUniqueName}-${uniqueString(subscription().id, resourceGroup().id, appUniqueName)}'
 var finalIdentifierUri = !empty(identifierUri) ? identifierUri : defaultIdentifierUri
 
-// Create the application registration
+// Create the application registration (without serviceManagementReference)
 resource appRegistration 'Microsoft.Graph/applications@v1.0' = {
   uniqueName: appUniqueName
   displayName: appDisplayName
-  serviceManagementReference: !empty(serviceManagementReference) ? serviceManagementReference : null
   signInAudience: signInAudience
   identifierUris: [finalIdentifierUri]
   tags: tagStrings
